@@ -43,16 +43,22 @@ def roll_dice(number_of_dice):
 # returns: the total hand (kept dice with rerolled dice)
 def reroll_dice(current_hand, reroll_positions):
     new_hand = []
-    new_dice = roll_dice(len(reroll_positions))
     
     # copy current hand to new hand unless position is in reroll_positions then replace with reroll
-    
+    new_hand = current_hand
+    for i, val in enumerate(new_hand):
+        if i in reroll_positions:
+            value = roll_dice(1)
+            new_hand[i] = value[0]     
         
     return new_hand
 
 class Game:
 
     player_list = []
+    
+    # game serial number to deconflicht concurrent gameplay, acts as seed for shared key
+    serial = 0
     
     def __init__(self, gameserial):
         self.serial = gameserial
@@ -78,11 +84,15 @@ class Player:
     #number of points a player has
     player_points = 0
     
+    # list of cards the player holds
+    player_cards = []
+    
     def __init__(self, player_name):
         self.name = player_name
         self.player_health = 10
         self.player_energy = 0
         self.player_points = 0
+        self.player_cards = []
         
 
 def main():
@@ -100,9 +110,11 @@ def main():
     #print(game1.player_list)
 
     this_diceroll = roll_dice(6)
+    print(this_diceroll)
     
     second_diceroll = reroll_dice(this_diceroll, [1,2,3])
     
+    print(second_diceroll)
     
     
  

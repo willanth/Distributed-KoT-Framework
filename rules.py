@@ -18,6 +18,7 @@ dice_faces = ('fist', 'energy', 'heart', 3, 2, 1)
 
 monster_names = ('Alienoid','Space Penguin','The King','Gigazaur','Cyber Kitty','Mecha Dragon')
 
+MAX_PLAYERS = 6
 
 def main():
     print("you are currently dans le main")

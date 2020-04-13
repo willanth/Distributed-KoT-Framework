@@ -7,10 +7,17 @@ Created on Sun Apr  5 10:44:46 2020
 @date: APR 2020
 
 Basic gameplay functionality and core tools
+
+TODO: implement "type hinting" per
+https://www.python.org/dev/peps/pep-0484/
+https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html
+
+TODO: accountability logging to a game log CSV 
 """
 
 import random
 import rules
+from typing import List, Set, Dict, Tuple, Optional
 
 
 ## roll_dice function
@@ -19,7 +26,7 @@ import rules
 #
 # returns: a new dice 'hand' of the desired number 
 #
-def roll_dice(number_of_dice):
+def roll_dice(number_of_dice: int):
     
     dice_roll = []
     for i in range(number_of_dice):
@@ -33,6 +40,16 @@ def roll_dice(number_of_dice):
 #
 # returns: order of players
 #
+def roll_off(gameobj):
+    
+    # for number of players (upper bound set in rules) roll for each 
+    for player in gameobj.player_list:
+        roll = roll_dice(1)
+        print(player.name +" rolls a: " + str(roll[0]))
+    # announce which players need to roll off again
+    
+    # announce the winner
+    return
 
 ## reroll_function
 #
@@ -106,8 +123,9 @@ def main():
     game1 = Game(1)
     
     game1.player_list.append(p1)
+    game1.player_list.append(p2)    
     
-    #print(game1.player_list)
+    print(game1.PlayerCount())
 
     this_diceroll = roll_dice(6)
     print(this_diceroll)
@@ -115,6 +133,8 @@ def main():
     second_diceroll = reroll_dice(this_diceroll, [1,2,3])
     
     print(second_diceroll)
+    
+    roll_off(game1)
     
     
  
